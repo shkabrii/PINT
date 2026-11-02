@@ -1,0 +1,9 @@
+# @package eval.olmo_gw
+defaults:
+  - gw_metrics:
+    - gw_detection
+    - gw_perplexity
+handler: GWEvaluator
+output_dir: ${paths.output_dir}
+overwrite: true
+metrics: {}

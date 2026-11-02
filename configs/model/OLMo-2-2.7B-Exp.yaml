@@ -1,0 +1,11 @@
+# Final pretrained checkpoint (step 100000 / 210B tokens) of the Gaussian-poison OLMo-2 2.7B.
+model_args:
+  pretrained_model_name_or_path: sbordt/OLMo-2-2.7B-Exp-Unlearning
+  revision: stage1-step100000-tokens210B
+  attn_implementation: sdpa
+  torch_dtype: float32
+tokenizer_args:
+  pretrained_model_name_or_path: sbordt/OLMo-2-2.7B-Exp-Unlearning
+  revision: stage1-step100000-tokens210B
+template_args:
+  apply_chat_template: False

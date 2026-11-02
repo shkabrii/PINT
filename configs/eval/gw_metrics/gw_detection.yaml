@@ -1,0 +1,6 @@
+# @package eval.olmo_gw.metrics.gw_detection
+defaults:
+  - ../../data/datasets@datasets: GW_detect
+handler: gw_detection
+sigma: 0.075
+datasets: {}

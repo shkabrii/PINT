@@ -1,0 +1,10 @@
+defaults:
+  - finetune
+
+handler: PINT
+method_args:
+  lambda: 100.0
+  trainable_params_regex:
+    - model\.layers\..*
+    - model\.norm\.weight
+  freeze_untrained_params: false

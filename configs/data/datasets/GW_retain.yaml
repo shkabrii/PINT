@@ -1,0 +1,7 @@
+GW_retain:
+  handler: TokenSequenceDataset
+  args:
+    hf_args:
+      path: sbordt/olmo-2-pretrain-validation
+      split: validation
+    mode: train

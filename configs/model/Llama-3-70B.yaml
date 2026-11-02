@@ -1,0 +1,14 @@
+# Meta-Llama-3-70B (base).
+model_args:
+  pretrained_model_name_or_path: "NousResearch/Meta-Llama-3-70B"
+  attn_implementation: 'sdpa'
+  torch_dtype: bfloat16
+  low_cpu_mem_usage: true
+tokenizer_args:
+  pretrained_model_name_or_path: "NousResearch/Meta-Llama-3-70B"
+template_args:
+  apply_chat_template: False
+  user_start_tag: "Question: "
+  user_end_tag: "\n"
+  asst_start_tag: "Answer: "
+  asst_end_tag: "\n\n"

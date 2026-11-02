@@ -1,0 +1,20 @@
+The name and label pools in this directory (first_name.txt, middle_name.txt, last_name.txt,
+job.txt, field.txt) are copied unchanged from https://github.com/facebookresearch/PhysicsLM4
+(data-synthetic-pretrain/Capo-bioS-bioR/fields, commit 7580696, 2026-08-21), released under the
+Apache License 2.0 (see LICENSE in this directory). Copyright (c) Meta Platforms, Inc. and affiliates.
+
+@inproceedings{Allen2025-canon,
+  author = {{Allen-Zhu}, Zeyuan},
+  title = {{Physics of Language Models: Part 4.1, Architecture Design and the Magic of Canon Layers}},
+  year = {2025},
+  booktitle = {Proceedings of the 39th Conference on Neural Information Processing Systems},
+  series = {NeurIPS~'25},
+  note = {Full version available at \url{https://ssrn.com/abstract=5240330}}
+}
+@misc{Allen2025-resonate,
+    title = {{Physics of Language Models: Part 4.2, Canon Layers at Scale where Synthetic Pretraining Resonates in Reality}},
+    author = {{Allen-Zhu}, Zeyuan},
+    year = {2025},
+    url = {https://physics.allen-zhu.com/part-4-architecture-design/part-4-2},
+    note = {Code released at \url{https://github.com/facebookresearch/PhysicsLM4}},
+}

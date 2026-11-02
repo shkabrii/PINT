@@ -1,0 +1,5 @@
+BIOS_full:
+  handler: BiosQADataset
+  args:
+    split: full
+    seed: ${bios_seed}

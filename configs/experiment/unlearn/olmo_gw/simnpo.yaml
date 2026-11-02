@@ -1,0 +1,34 @@
+# @package _global_
+# SimNPO on the Gaussian poisons (protocol of olmo_gw/pint.yaml); tuned: beta, learning rate.
+defaults:
+  - override /model: OLMo-2-2.7B-Exp
+  - override /trainer: SimNPO
+  - override /data: unlearn
+  - override /data/datasets@data.forget: GW_forget
+  - override /data/datasets@data.retain: GW_retain
+  - override /eval: olmo_gw
+
+data:
+  anchor: forget
+
+trainer:
+  method_args:
+    delta: 0.0
+    beta: 0.2
+    gamma: 1.0
+    alpha: 1.0
+    retain_loss_type: NLL
+  args:
+    learning_rate: 1e-5
+    max_steps: 200
+    per_device_train_batch_size: 1
+    gradient_accumulation_steps: 8
+    gradient_checkpointing: true
+    gradient_checkpointing_kwargs:
+      use_reentrant: false
+    save_strategy: steps
+    save_steps: 25
+    eval_strategy: "no"
+    seed: 0
+
+task_name: olmo_gw/simnpo/b${trainer.method_args.beta}_a${trainer.method_args.alpha}_lr${trainer.args.learning_rate}_s${trainer.args.seed}

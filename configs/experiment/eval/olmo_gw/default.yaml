@@ -1,0 +1,6 @@
+# @package _global_
+defaults:
+  - override /model: OLMo-2-2.7B-Exp
+  - override /eval: olmo_gw
+
+task_name: ???

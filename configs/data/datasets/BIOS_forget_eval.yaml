@@ -1,0 +1,5 @@
+BIOS_forget_eval:
+  handler: BiosQADataset
+  args:
+    split: forget_eval
+    seed: ${bios_seed}

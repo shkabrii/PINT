@@ -1,0 +1,56 @@
+# @package _global_
+# PINT on MUSE (2 GPUs, effective batch 64, 10 epochs); tuned: lambda, learning rate.
+defaults:
+  - override /model: Llama-2-7b-hf
+  - override /trainer: PINT
+  - override /data: unlearn
+  - override /data/datasets@data.forget: MUSE_forget
+  - override /data/datasets@data.retain: MUSE_retain
+  - override /eval: muse
+
+data_split: News
+forget_split: forget
+retain_split: retain1
+retain_logs_path: null
+
+model:
+  model_args:
+    pretrained_model_name_or_path: muse-bench/MUSE-${data_split}_target
+    attn_implementation: sdpa
+  tokenizer_args:
+    pretrained_model_name_or_path: NousResearch/Llama-2-7b-hf
+
+data:
+  anchor: forget
+  forget:
+    MUSE_forget:
+      args:
+        hf_args:
+          split: ${forget_split}
+          path: muse-bench/MUSE-${data_split}
+  retain:
+    MUSE_retain:
+      args:
+        hf_args:
+          path: muse-bench/MUSE-${data_split}
+          split: ${retain_split}
+
+eval:
+  muse:
+    data_split: ${data_split}
+    retain_logs_path: ${retain_logs_path}
+    overwrite: true
+
+trainer:
+  method_args:
+    lambda: 14000
+  args:
+    per_device_train_batch_size: 4
+    gradient_accumulation_steps: 8
+    learning_rate: 1e-5
+    num_train_epochs: 10
+    lr_scheduler_type: constant
+    gradient_checkpointing: true
+    seed: 1
+
+task_name: muse/pint/${data_split}_l${trainer.method_args.lambda}_lr${trainer.args.learning_rate}_s${trainer.args.seed}

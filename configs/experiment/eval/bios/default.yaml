@@ -1,0 +1,16 @@
+# @package _global_
+defaults:
+  - override /model: Llama-3.2-1B-Instruct
+  - override /eval: bios
+
+bios_seed: 0
+bios_model: saves/finetune/bios/full_s${bios_seed}
+
+model:
+  model_args:
+    pretrained_model_name_or_path: ${bios_model}
+    attn_implementation: sdpa
+  tokenizer_args:
+    pretrained_model_name_or_path: ${bios_model}
+
+task_name: ???

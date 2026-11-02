@@ -1,0 +1,5 @@
+# @package eval.olmo_gw.metrics.gw_perplexity
+defaults:
+  - ../../data/datasets@datasets: GW_utility
+handler: gw_perplexity
+datasets: {}

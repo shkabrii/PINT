@@ -1,0 +1,53 @@
+# @package _global_
+# GradAscent on WMDP (protocol of wmdp/pint.yaml); tuned: learning rate.
+defaults:
+  - override /model: zephyr-7b-beta
+  - override /trainer: GradAscent
+  - override /data: unlearn
+  - override /data/datasets@data.forget: WMDP_forget
+  - override /data/datasets@data.retain: WMDP_retain
+  - override /eval: lm_eval
+
+data_split: cyber
+
+model:
+  model_args:
+    attn_implementation: sdpa
+
+data:
+  anchor: forget
+  forget:
+    WMDP_forget:
+      args:
+        hf_args:
+          data_files: data/wmdp/wmdp-corpora/${data_split}-forget-corpus.jsonl
+  retain:
+    WMDP_retain:
+      args:
+        hf_args:
+          data_files: data/wmdp/wmdp-corpora/${data_split}-retain-corpus.jsonl
+
+eval:
+  lm_eval:
+    tasks:
+      - wmdp_${data_split}
+      - mmlu
+
+collator:
+  DataCollatorForSupervisedDataset:
+    args:
+      padding_side: left
+
+trainer:
+  args:
+    per_device_train_batch_size: 2
+    gradient_accumulation_steps: 8
+    learning_rate: 3e-5
+    max_steps: 80
+    eval_strategy: steps
+    eval_steps: 0.5
+    lr_scheduler_type: constant
+    gradient_checkpointing: true
+    seed: 1
+
+task_name: wmdp/gradascent/${data_split}_lr${trainer.args.learning_rate}_s${trainer.args.seed}

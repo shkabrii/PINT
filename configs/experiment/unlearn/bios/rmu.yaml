@@ -1,0 +1,41 @@
+# @package _global_
+# RMU on bioS (protocol of bios/pint.yaml); tuned: steering_coeff, layer, learning rate.
+defaults:
+  - override /model: Llama-3.2-1B-Instruct
+  - override /trainer: RMU
+  - override /data: unlearn
+  - override /data/datasets@data.forget: BIOS_forget
+  - override /data/datasets@data.retain: BIOS_retain
+  - override /eval: bios
+
+bios_seed: 0
+bios_model: saves/finetune/bios/full_s${bios_seed}
+rmu_layer: 7
+
+model:
+  model_args:
+    pretrained_model_name_or_path: ${bios_model}
+    attn_implementation: sdpa
+  tokenizer_args:
+    pretrained_model_name_or_path: ${bios_model}
+
+data:
+  anchor: forget
+
+trainer:
+  method_args:
+    steering_coeff: 10
+    alpha: 1
+    gamma: 1.0
+    retain_loss_type: EMBED_DIFF
+    module_regex: model\.layers\.${rmu_layer}
+  args:
+    per_device_train_batch_size: 32
+    gradient_accumulation_steps: 1
+    learning_rate: 1e-5
+    num_train_epochs: 10
+    warmup_epochs: 0
+    weight_decay: 0.0
+    seed: 1
+
+task_name: bios/rmu/s${bios_seed}_L${rmu_layer}_c${trainer.method_args.steering_coeff}_lr${trainer.args.learning_rate}_s${trainer.args.seed}

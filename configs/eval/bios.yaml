@@ -1,0 +1,10 @@
+# @package eval.bios
+defaults:
+  - bios_metrics:
+    - forget_target
+    - retain_target
+handler: BiosEvaluator
+output_dir: ${paths.output_dir}
+overwrite: true
+metrics: {}
+batch_size: 64

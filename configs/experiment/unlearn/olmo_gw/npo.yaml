@@ -1,0 +1,33 @@
+# @package _global_
+# NPO on the Gaussian poisons (protocol of olmo_gw/pint.yaml); tuned: beta, learning rate.
+defaults:
+  - override /model: OLMo-2-2.7B-Exp
+  - override /trainer: NPO
+  - override /data: unlearn
+  - override /data/datasets@data.forget: GW_forget
+  - override /data/datasets@data.retain: GW_retain
+  - override /eval: olmo_gw
+
+data:
+  anchor: forget
+
+trainer:
+  method_args:
+    beta: 1e-4
+    alpha: 1.0
+    gamma: 1.0
+    retain_loss_type: NLL
+  args:
+    learning_rate: 3e-5
+    max_steps: 200
+    per_device_train_batch_size: 1
+    gradient_accumulation_steps: 8
+    gradient_checkpointing: true
+    gradient_checkpointing_kwargs:
+      use_reentrant: false
+    save_strategy: steps
+    save_steps: 25
+    eval_strategy: "no"
+    seed: 0
+
+task_name: olmo_gw/npo/b${trainer.method_args.beta}_a${trainer.method_args.alpha}_lr${trainer.args.learning_rate}_s${trainer.args.seed}

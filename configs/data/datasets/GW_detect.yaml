@@ -1,0 +1,7 @@
+GW_detect:
+  handler: GWForgetDataset
+  args:
+    hf_args:
+      path: sbordt/OLMo-2-2.7B-Exp-NoiseVectors
+    step: 100000
+    mode: detect

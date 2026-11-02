@@ -1,0 +1,7 @@
+# @package eval.bios.metrics.retain_target
+defaults:
+  - ../../data/datasets@datasets: BIOS_retain_eval
+  - ../../collator@collators: DataCollatorForSupervisedDatasetwithIndex
+
+handler: label_accuracy
+batch_size: ${eval.bios.batch_size}
