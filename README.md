@@ -95,4 +95,14 @@ MIT, see [`LICENSE`](LICENSE).
 
 ## Citation
 
-Coming soon.
+```bibtex
+@misc{shkabrii2026forgetcomesnextllm,
+      title={Forget What Comes Next: LLM Unlearning via Statistical Independence}, 
+      author={Andrii Shkabrii and Claudia Plant and Martin Pawelczyk},
+      year={2026},
+      eprint={2611.03955},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG},
+      url={https://arxiv.org/abs/2611.03955}, 
+}
+```
